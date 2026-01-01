@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Arrow Buttons</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('./file_0000000019e4722fa25345f043cf42ed.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            padding-left: 2rem;
+        }
+        
+        .dpad-container {
+            position: relative;
+            width: 192px;
+            height: 320px;
+        }
+        
+        .arrow-button {
+            position: absolute;
+            width: 64px;
+            height: 48px;
+            border-radius: 16px;
+            border: 4px solid #1a1a1a;
+            background: linear-gradient(to bottom, #f5f5f5 0%, #e0e0e0 50%, #d0d0d0 100%);
+            box-shadow: 0 6px 0 #a0a0a0, 0 8px 20px rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: all 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .arrow-button:active {
+            transform: translateY(4px);
+            box-shadow: inset 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .arrow-button svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
+        }
+        
+        #right-arrow {
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        #right-arrow:active {
+            transform: translateY(calc(-50% + 4px));
+        }
+        
+        #up-arrow {
+            left: calc(50% - 40px);
+            top: 75px;
+            transform: translateX(-50%);
+        }
+        
+        #up-arrow:active {
+            transform: translateX(-50%) translateY(4px);
+        }
+        
+        #down-arrow {
+            left: calc(50% - 40px);
+            bottom: 20px;
+            transform: translateX(-50%);
+        }
+        
+        #down-arrow:active {
+            transform: translateX(-50%) translateY(4px);
+        }
+    </style>
+</head>
+<body>
+    <div class="dpad-container">
+        <!-- Right Arrow -->
+        <button class="arrow-button" id="right-arrow" data-direction="right">
+            <svg viewBox="0 0 100 60">
+                <path d="M 20 30 L 50 10 L 50 22 L 80 22 L 80 38 L 50 38 L 50 50 Z" 
+                      fill="#0a0a0a" 
+                      transform="rotate(180 50 30)"/>
+            </svg>
+        </button>
+        
+        <!-- Up Arrow -->
+        <button class="arrow-button" id="up-arrow" data-direction="up">
+            <svg viewBox="0 0 100 60">
+                <path d="M 20 30 L 50 10 L 50 22 L 80 22 L 80 38 L 50 38 L 50 50 Z" 
+                      fill="#0a0a0a" 
+                      transform="rotate(90 50 30)"/>
+            </svg>
+        </button>
+        
+        <!-- Down Arrow -->
+        <button class="arrow-button" id="down-arrow" data-direction="down">
+            <svg viewBox="0 0 100 60">
+                <path d="M 20 30 L 50 10 L 50 22 L 80 22 L 80 38 L 50 38 L 50 50 Z" 
+                      fill="#0a0a0a" 
+                      transform="rotate(-90 50 30)"/>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        // Add click event listeners to all buttons
+        const buttons = document.querySelectorAll('.arrow-button');
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const direction = this.dataset.direction;
+                console.log(`${direction} arrow pressed`);
+                // Add your game logic here
+            });
+            
+            // Optional: Add touch feedback
+            button.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                this.style.transform = this.style.transform.replace('translateY(-50%)', 'translateY(calc(-50% + 4px))');
+            });
+            
+            button.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                this.style.transform = this.style.transform.replace('translateY(calc(-50% + 4px))', 'translateY(-50%)');
+            });
+        });
+    </script>
+</body>
+</html>
